@@ -1,0 +1,25 @@
+<module>
+	<rawname>configedit</rawname>
+	<name>Config Edit</name>
+	<repo>extended</repo>
+	<version>13.0.1</version>
+	<publisher>Sangoma Technologies, Inc</publisher>
+	<license>AGPLv3+</license>
+	<licenselink>http://www.gnu.org/licenses/agpl-3.0.txt</licenselink>
+	<description>
+		Configuration file editor for _custom files
+	</description>
+	<changelog>
+        *12.0.1* 
+	</changelog>
+	<category>Admin</category>
+    <menuitems>
+    	<configedit>Config Edit</configedit>
+    </menuitems>
+	<supported>
+		<version>13.0</version>
+	</supported>
+	<depends>
+		<version>13.0</version>
+	</depends>
+</module>
