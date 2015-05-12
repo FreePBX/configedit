@@ -10,7 +10,7 @@
 		Configuration file editor for _custom files
 	</description>
 	<changelog>
-        *12.0.1* 
+		*13.0.1* Inital release with support for editing custom.conf files.
 	</changelog>
 	<category>Admin</category>
     <menuitems>
