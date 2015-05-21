@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-12 18:41-0400\n"
+"POT-Creation-Date: 2015-05-21 15:20-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,6 +19,11 @@ msgstr ""
 
 #: Configedit.class.php:88
 msgid "Asterisk Configuration Files"
+msgstr ""
+
+#: views/main.php:36
+#: assets/js/configedit.js:35
+msgid "Click a file on the left to edit"
 msgstr ""
 
 #: views/main.php:5
@@ -52,19 +57,24 @@ msgstr ""
 msgid "File is not writable"
 msgstr ""
 
-#: assets/js/configedit.js:67
+#: assets/js/configedit.js:75
 msgid "Save"
 msgstr ""
 
-#: assets/js/configedit.js:56
+#: assets/js/configedit.js:64
 msgid ""
 "Saved. Make sure to Apply Config so that Asterisk will pickup your changes"
 msgstr ""
 
-#: assets/js/configedit.js:52
+#: assets/js/configedit.js:60
 msgid "Saving..."
 msgstr ""
 
 #: views/main.php:9
 msgid "What is Configuration File Editor"
+msgstr ""
+
+#: assets/js/configedit.js:28
+#, perl-format
+msgid "Working on %s"
 msgstr ""
