@@ -25,11 +25,19 @@ $(function() {
 						$("#save").prop("disabled", true);
 						cmeditor.setOption("readOnly",true);
 					}
+					$("#filemessage").text(sprintf(_("Working on %s"),$("#"+id).data("file")));
 				} else {
 					$("#message").removeClass("alert-success hidden").addClass("alert-danger").text(data.message);
 					$("#save").prop("disabled", true);
 				}
 			});
+		} else {
+			$("#filemessage").text(_("Click a file on the left to edit"));
+			if(cmeditor !== null) {
+				cmeditor.setOption("readOnly",true);
+				cmeditor.setValue("");
+			}
+			$("#save").prop("disabled", true);
 		}
 	}).jstree({
 		'core': {

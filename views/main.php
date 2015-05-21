@@ -33,8 +33,9 @@
 			</div>
 		</div>
 		<div class="col-md-8">
+			<h3 id="filemessage"><?php echo _('Click a file on the left to edit')?></h3>
 			<div id="message" class="alert alert-danger hidden" role="alert"></div>
-			<textarea id="editor"></textarea>
+			<textarea id="editor" disabled></textarea>
 			<br/>
 			<button id="save" class="pull-right" disabled>Save</button>
 		</div>
