@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-21 15:20-0400\n"
+"POT-Creation-Date: 2015-07-16 17:01-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -57,16 +57,16 @@ msgstr ""
 msgid "File is not writable"
 msgstr ""
 
-#: assets/js/configedit.js:75
+#: assets/js/configedit.js:80
 msgid "Save"
 msgstr ""
 
-#: assets/js/configedit.js:64
+#: assets/js/configedit.js:69
 msgid ""
 "Saved. Make sure to Apply Config so that Asterisk will pickup your changes"
 msgstr ""
 
-#: assets/js/configedit.js:60
+#: assets/js/configedit.js:65
 msgid "Saving..."
 msgstr ""
 
