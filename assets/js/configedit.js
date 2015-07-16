@@ -55,6 +55,11 @@ $(function() {
 		matchBrackets: true,
 	});
 
+	cmeditor.setSize($(".col-md-8").width(), 350);
+	$( window ).resize(function() {
+		cmeditor.setSize($(".col-md-8").width(), 350);
+	});
+
 	$("#save").click(function() {
 		if(typeof $("#editor").data("file") !== "undefined") {
 			$("#save").prop("disabled", true).text(_("Saving..."));

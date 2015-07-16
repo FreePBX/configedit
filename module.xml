@@ -2,14 +2,15 @@
 	<rawname>configedit</rawname>
 	<name>Config Edit</name>
 	<repo>extended</repo>
-	<version>13.0.2</version>
-	<publisher>Sangoma Technologies, Inc</publisher>
+	<version>13.0.3</version>
+	<publisher>Sangoma Technologies Corporation</publisher>
 	<license>AGPLv3+</license>
 	<licenselink>http://www.gnu.org/licenses/agpl-3.0.txt</licenselink>
 	<description>
 		Configuration file editor for _custom files
 	</description>
 	<changelog>
+		*13.0.3* Resize properly to browser window. Don't expand into the infinite
 		*13.0.2* Made navigation easier to understand
 		*13.0.1* Inital release with support for editing custom.conf files.
 	</changelog>
