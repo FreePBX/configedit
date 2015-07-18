@@ -15,8 +15,6 @@ class Configedit implements BMO {
 		}
 
 		$this->FreePBX = $freepbx;
-		$this->Userman = $this->FreePBX->Userman;
-		$this->db = $freepbx->Database;
 		$this->config = $freepbx->Config;
 		$this->brand = $this->config->get("DASHBOARD_FREEPBX_BRAND");
 		$this->astetcdir = $this->config->get('ASTETCDIR');
