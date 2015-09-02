@@ -41,12 +41,12 @@ class Configedit implements BMO {
 		switch ($_REQUEST['command']) {
 			case "load":
 				$files = $this->getValidFiles();
-				if(isset($files[$_POST['path']]['files'][$_POST['file']])) {
+				if(isset($files[$_POST['type']][$_POST['path']]['files'][$_POST['file']])) {
 					$file = $_POST['path']."/".$_POST['file'];
 					if(is_readable($file)) {
 						return array(
 							"status" => true,
-							"writable" => $files[$_POST['path']]['files'][$_POST['file']]['writable'],
+							"writable" => $files[$_POST['type']][$_POST['path']]['files'][$_POST['file']]['writable'],
 							"contents" => file_get_contents($file),
 							"modeFile" => "asterisk",
 							"mime" => "text/x-asterisk"
@@ -60,7 +60,7 @@ class Configedit implements BMO {
 			break;
 			case "save":
 				$files = $this->getValidFiles();
-				if(isset($files[$_POST['path']]['files'][$_POST['file']])) {
+				if(isset($files[$_POST['type']][$_POST['path']]['files'][$_POST['file']])) {
 					$file = $_POST['path']."/".$_POST['file'];
 					if(is_writable($file)) {
 						file_put_contents($file, $_POST['contents']);
@@ -81,25 +81,47 @@ class Configedit implements BMO {
 	}
 
 	private function getValidFiles() {
-		$files = array(
+		$files['custom'] = array(
 			$this->astetcdir => array(
-				'name' => _('Asterisk Configuration Files'),
+				'name' => _('Asterisk Custom Configuration Files'),
 				'mime' => 'text/x-asterisk',
 				'files' => array()
 			)
 		);
+		$files['system'] = array(
+			$this->astetcdir => array(
+				'name' => _('Asterisk System Configuration Files'),
+				'mime' => 'text/x-asterisk',
+				'files' => array()
+			)
+		);
+		$customs = array();
 		foreach(glob($this->astetcdir."/*_custom*") as $file) {
-			$files[$this->astetcdir]['files'][basename($file)] = array(
+			$customs[] = basename($file);
+			$files['custom'][$this->astetcdir]['files'][basename($file)] = array(
+				"type" => "custom",
 				"file" => basename($file),
 				"size" => filesize($file),
 				"writable" => (is_writable($file))
 			);
 		}
 		if(file_exists($this->astetcdir."/freepbx_menu.conf")) {
-			$files[$this->astetcdir]['files']['freepbx_menu.conf'] = array(
+			$files['custom'][$this->astetcdir]['files']['freepbx_menu.conf'] = array(
+				"type" => "custom",
 				"file" => "freepbx_menu.conf",
 				"size" => filesize($this->astetcdir."/freepbx_menu.conf"),
 				"writable" => (is_writable($this->astetcdir."/freepbx_menu.conf"))
+			);
+		}
+		foreach(glob($this->astetcdir."/*") as $file) {
+			if(in_array(basename($file),$customs)) {
+				continue;
+			}
+			$files['system'][$this->astetcdir]['files'][basename($file)] = array(
+				"type" => "system",
+				"file" => basename($file),
+				"size" => filesize($file),
+				"writable" => false
 			);
 		}
 		return $files;

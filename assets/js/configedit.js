@@ -3,7 +3,7 @@ $(function() {
 	$('#jstree-proton-1').on('changed.jstree', function (e, data) {
 		var id = data.instance.get_node(data.selected).id;
 		if(typeof $("#"+id).data("file") !== "undefined") {
-			$.post( "ajax.php", {module: "configedit", command: "load", file: $("#"+id).data("file"), path: $("#"+id).data("path")},function( data ) {
+			$.post( "ajax.php", {module: "configedit", command: "load", file: $("#"+id).data("file"), path: $("#"+id).data("path"), type: $("#"+id).data("type")},function( data ) {
 				if(data.status) {
 					cmeditor.setValue(data.contents);
 					if(typeof CodeMirror.mimeModes[data.mime] !== "undefined") {
@@ -15,6 +15,7 @@ $(function() {
 					}
 					$("#editor").data("file", $("#"+id).data("file"));
 					$("#editor").data("path", $("#"+id).data("path"));
+					$("#editor").data("type", $("#"+id).data("type"));
 					$("#editor").data("id", id);
 					if(data.writable) {
 						$("#message").addClass("hidden").text("");
@@ -64,7 +65,7 @@ $(function() {
 		if(typeof $("#editor").data("file") !== "undefined") {
 			$("#save").prop("disabled", true).text(_("Saving..."));
 			cmeditor.setOption("readOnly",true);
-			$.post( "ajax.php", {module: "configedit", command: "save", file: $("#editor").data("file"), path: $("#editor").data("path"), contents: cmeditor.getValue()},function( data ) {
+			$.post( "ajax.php", {module: "configedit", command: "save", file: $("#editor").data("file"), path: $("#editor").data("path"), contents: cmeditor.getValue(), type: $("#editor").data("type")},function( data ) {
 				if(data.status) {
 					$("#message").removeClass("hidden alert-danger").addClass("alert-success").text(_("Saved. Make sure to Apply Config so that Asterisk will pickup your changes"));
 					toggle_reload_button("show");
