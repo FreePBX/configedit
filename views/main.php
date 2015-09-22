@@ -18,6 +18,7 @@
 	</div>
 	<div class="row">
 		<div class="col-md-4">
+			<button class="btn" id="addfile"><i class="fa fa-plus"></i> <?php echo _("Add New File")?></button>
 			<div id="jstree-proton-1" style="margin-top:20px;" class="proton-demo">
 				<ul>
 					<?php foreach($listings['custom'] as $path => $listing) {?>
@@ -50,3 +51,4 @@
 		</div>
 	</div>
 </div>
+<script>var names = <?php echo json_encode($names);?></script>

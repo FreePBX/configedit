@@ -3,35 +3,7 @@ $(function() {
 	$('#jstree-proton-1').on('changed.jstree', function (e, data) {
 		var id = data.instance.get_node(data.selected).id;
 		if(typeof $("#"+id).data("file") !== "undefined") {
-			$.post( "ajax.php", {module: "configedit", command: "load", file: $("#"+id).data("file"), path: $("#"+id).data("path"), type: $("#"+id).data("type")},function( data ) {
-				if(data.status) {
-					cmeditor.setValue(data.contents);
-					if(typeof CodeMirror.mimeModes[data.mime] !== "undefined") {
-						cmeditor.setOption("mode", data.mime);
-					} else {
-						$.getScript( "assets/configedit/js/modes/"+data.modeFile+".js", function() {
-							cmeditor.setOption("mode", data.mime);
-						});
-					}
-					$("#editor").data("file", $("#"+id).data("file"));
-					$("#editor").data("path", $("#"+id).data("path"));
-					$("#editor").data("type", $("#"+id).data("type"));
-					$("#editor").data("id", id);
-					if(data.writable) {
-						$("#message").addClass("hidden").text("");
-						$("#save").prop("disabled", false);
-						cmeditor.setOption("readOnly",false);
-					} else {
-						$("#message").removeClass("alert-success hidden").addClass("alert-danger").text(_("File is not writable"));
-						$("#save").prop("disabled", true);
-						cmeditor.setOption("readOnly",true);
-					}
-					$("#filemessage").text(sprintf(_("Working on %s"),$("#"+id).data("file")));
-				} else {
-					$("#message").removeClass("alert-success hidden").addClass("alert-danger").text(data.message);
-					$("#save").prop("disabled", true);
-				}
-			});
+			loadFile(id, $("#"+id).data("file"), $("#"+id).data("path"), $("#"+id).data("type"));
 		} else {
 			$("#filemessage").text(_("Click a file on the left to edit"));
 			if(cmeditor !== null) {
@@ -46,6 +18,7 @@ $(function() {
 				'name': 'proton',
 				'responsive': true
 			},
+			'check_callback' : true,
 			'multiple': false
 		}
 	});
@@ -84,3 +57,58 @@ $(function() {
 		}
 	});
 });
+$("#addfile").click(function() {
+	var file = prompt(_("Please enter a valid (not in use) file name")),
+			$this = this;
+	if (file !== null) {
+		$(this).prop("disabled",true);
+		$.post( "ajax.php", {module: "configedit", command: "add", file: file},function( data ) {
+			if(data.status) {
+				var id = $('#jstree-proton-1').jstree('create_node', 'j1_1', { text:data.file,"icon":"fa fa-file-o"}, 'last');
+				var el = $('#'+id);
+				el.data("path",'/etc/asterisk');
+				el.data("type", 'custom');
+				el.data("file", data.file);
+				$('#jstree-proton-1').jstree('deselect_all');
+				$('#jstree-proton-1').jstree('select_node', id);
+			} else {
+				alert(data.message);
+			}
+		}).always(function(){
+			$($this).prop("disabled",false);
+		})
+	}
+});
+
+
+function loadFile(id, file, path, type) {
+	$.post( "ajax.php", {module: "configedit", command: "load", file: file, path: path, type: type},function( data ) {
+		if(data.status) {
+			cmeditor.setValue(data.contents);
+			if(typeof CodeMirror.mimeModes[data.mime] !== "undefined") {
+				cmeditor.setOption("mode", data.mime);
+			} else {
+				$.getScript( "assets/configedit/js/modes/"+data.modeFile+".js", function() {
+					cmeditor.setOption("mode", data.mime);
+				});
+			}
+			$("#editor").data("file", $("#"+id).data("file"));
+			$("#editor").data("path", $("#"+id).data("path"));
+			$("#editor").data("type", $("#"+id).data("type"));
+			$("#editor").data("id", id);
+			if(data.writable) {
+				$("#message").addClass("hidden").text("");
+				$("#save").prop("disabled", false);
+				cmeditor.setOption("readOnly",false);
+			} else {
+				$("#message").removeClass("alert-success hidden").addClass("alert-danger").text(_("File is not writable"));
+				$("#save").prop("disabled", true);
+				cmeditor.setOption("readOnly",true);
+			}
+			$("#filemessage").text(sprintf(_("Working on %s"),$("#"+id).data("file")));
+		} else {
+			$("#message").removeClass("alert-success hidden").addClass("alert-danger").text(data.message);
+			$("#save").prop("disabled", true);
+		}
+	});
+}

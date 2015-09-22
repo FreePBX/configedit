@@ -7,7 +7,7 @@
  * Copyright 2006-2014 Schmooze Com Inc.
  */
 
-class Configedit implements BMO {
+class Configedit extends \FreePBX_Helpers implements BMO {
 	private $brand = 'FreePBX';
 	public function __construct($freepbx = null) {
 		if ($freepbx == null) {
@@ -34,11 +34,40 @@ class Configedit implements BMO {
 	}
 
 	public function ajaxRequest($req, &$setting) {
-		return true;
+		switch ($_REQUEST['command']) {
+			case "load":
+			case "save":
+			case "add":
+				return true;
+			break;
+		}
+		return false;
 	}
+
 	public function ajaxHandler() {
 		$ret = array("status" => false);
 		switch ($_REQUEST['command']) {
+			case "add":
+				$file = preg_replace("/\s+|'+|`+|\"+|<+|>+|\?+|\*|&+/","-",strtolower(basename($_POST['file'])));
+				if(file_exists($this->astetcdir."/".$file)) {
+					return array("status" => false, "message" => sprintf(_("File %s already exists"),$file));
+				}
+				if(!is_writable($this->astetcdir)) {
+					return array("status" => false, "message" => sprintf(_("To able to write to %s"),$this->astetcdir));
+				}
+				if(touch($this->astetcdir."/".$file)) {
+					$files = $this->getConfig('customFiles');
+					if(empty($files) || !is_array($files)) {
+						$files = array($file);
+					} else {
+						$files[] = $file;
+					}
+					$this->setConfig('customFiles',$files);
+					return array("status" => true, "file" => $file);
+				} else {
+					return array("status" => false, "message" => sprintf(_("There was a problem creating %s"),$this->astetcdir."/".$file));
+				}
+			break;
 			case "load":
 				$files = $this->getValidFiles();
 				if(isset($files[$_POST['type']][$_POST['path']]['files'][$_POST['file']])) {
@@ -55,7 +84,7 @@ class Configedit implements BMO {
 						return array("status" => false, "message" => sprintf(_("File %s is not readable"),$file));
 					}
 				} else {
-					return array("status" => false, "message" => sprintf(_("File %s is not valid"),$file));
+					return array("status" => false, "message" => sprintf(_("File %s is not valid"),$_POST['file']));
 				}
 			break;
 			case "save":
@@ -77,7 +106,19 @@ class Configedit implements BMO {
 	}
 
 	public function showPage() {
-		return load_view(__DIR__."/views/main.php",array("listings" => $this->getValidFiles(), "brand" => $this->brand));
+		$listings = $this->getValidFiles();
+		$names = array();
+		foreach($listings as $type) {
+			foreach($type as $dir) {
+				if(!is_array($dir['files'])) {
+					continue;
+				}
+				foreach(array_keys($dir['files']) as $file) {
+					$names[] = $file;
+				}
+			}
+		}
+		return load_view(__DIR__."/views/main.php",array("names" => $names, "listings" => $listings, "brand" => $this->brand));
 	}
 
 	private function getValidFiles() {
@@ -97,6 +138,9 @@ class Configedit implements BMO {
 		);
 		$customs = array();
 		foreach(glob($this->astetcdir."/*_custom*") as $file) {
+			if(is_dir($file)) {
+				continue;
+			}
 			$customs[] = basename($file);
 			$files['custom'][$this->astetcdir]['files'][basename($file)] = array(
 				"type" => "custom",
@@ -113,8 +157,21 @@ class Configedit implements BMO {
 				"writable" => (is_writable($this->astetcdir."/freepbx_menu.conf"))
 			);
 		}
+		$cf = $this->getConfig('customFiles');
+		if(!empty($cf) && is_array($cf)) {
+			foreach($cf as $file) {
+				$file = $this->astetcdir."/".$file;
+				$customs[] = basename($file);
+				$files['custom'][$this->astetcdir]['files'][basename($file)] = array(
+					"type" => "custom",
+					"file" => basename($file),
+					"size" => filesize($file),
+					"writable" => (is_writable($file))
+				);
+			}
+		}
 		foreach(glob($this->astetcdir."/*") as $file) {
-			if(in_array(basename($file),$customs)) {
+			if(in_array(basename($file),$customs) || is_dir($file)) {
 				continue;
 			}
 			$files['system'][$this->astetcdir]['files'][basename($file)] = array(
