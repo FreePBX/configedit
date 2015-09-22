@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-02 14:11-0700\n"
+"POT-Creation-Date: 2015-09-21 17:43-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,15 +17,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: Configedit.class.php:86
+#: views/main.php:21
+msgid "Add New File"
+msgstr ""
+
+#: Configedit.class.php:127
 msgid "Asterisk Custom Configuration Files"
 msgstr ""
 
-#: Configedit.class.php:93
+#: Configedit.class.php:134
 msgid "Asterisk System Configuration Files"
 msgstr ""
 
-#: views/main.php:45 assets/js/configedit.js:36
+#: views/main.php:46 assets/js/configedit.js:8
 msgid "Click a file on the left to edit"
 msgstr ""
 
@@ -40,43 +44,62 @@ msgid ""
 "the browser that you would normally have to edit through the CLI."
 msgstr ""
 
-#: Configedit.class.php:55
+#: Configedit.class.php:53
+#, php-format
+msgid "File %s already exists"
+msgstr ""
+
+#: Configedit.class.php:84
 #, php-format
 msgid "File %s is not readable"
 msgstr ""
 
-#: Configedit.class.php:58 Configedit.class.php:72
+#: Configedit.class.php:87 Configedit.class.php:101
 #, php-format
 msgid "File %s is not valid"
 msgstr ""
 
-#: Configedit.class.php:69
+#: Configedit.class.php:98
 #, php-format
 msgid "File %s is not writable"
 msgstr ""
 
-#: assets/js/configedit.js:25
+#: assets/js/configedit.js:104
 msgid "File is not writable"
 msgstr ""
 
-#: views/main.php:49 assets/js/configedit.js:81
+#: assets/js/configedit.js:61
+msgid "Please enter a valid (not in use) file name"
+msgstr ""
+
+#: views/main.php:50 assets/js/configedit.js:54
 msgid "Save"
 msgstr ""
 
-#: assets/js/configedit.js:70
+#: assets/js/configedit.js:43
 msgid ""
 "Saved. Make sure to Apply Config so that Asterisk will pickup your changes"
 msgstr ""
 
-#: assets/js/configedit.js:66
+#: assets/js/configedit.js:39
 msgid "Saving..."
+msgstr ""
+
+#: Configedit.class.php:68
+#, php-format
+msgid "There was a problem creating %s"
+msgstr ""
+
+#: Configedit.class.php:56
+#, php-format
+msgid "To able to write to %s"
 msgstr ""
 
 #: views/main.php:9
 msgid "What is Configuration File Editor"
 msgstr ""
 
-#: assets/js/configedit.js:29
+#: assets/js/configedit.js:108
 #, perl-format
 msgid "Working on %s"
 msgstr ""
