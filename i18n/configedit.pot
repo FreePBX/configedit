@@ -3,13 +3,13 @@
 # For licensing information, please see the file named LICENSE located in the module directory
 #
 # FreePBX language template for configedit
-# Copyright (C) 2008-2015 Sangoma, Inc.
+# Copyright (C) 2008-2016 Sangoma, Inc.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-21 17:43-0700\n"
+"POT-Creation-Date: 2016-01-08 18:25-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,21 +21,40 @@ msgstr ""
 msgid "Add New File"
 msgstr ""
 
-#: Configedit.class.php:127
+#: configedit.i18n.php:6
+#: configedit.i18n.php:12
+msgid "Admin"
+msgstr ""
+
+#: assets/js/configedit.js:41
+msgid "Are you sure you want to delete this file?"
+msgstr ""
+
+#: Configedit.class.php:158
 msgid "Asterisk Custom Configuration Files"
 msgstr ""
 
-#: Configedit.class.php:134
+#: Configedit.class.php:165
 msgid "Asterisk System Configuration Files"
 msgstr ""
 
 #: views/main.php:46
-#: assets/js/configedit.js:8
+#: assets/js/configedit.js:10
+#: assets/js/configedit.js:48
 msgid "Click a file on the left to edit"
+msgstr ""
+
+#: configedit.i18n.php:4
+#: configedit.i18n.php:10
+msgid "Config Edit"
 msgstr ""
 
 #: views/main.php:5
 msgid "Configuration File Editor"
+msgstr ""
+
+#: configedit.i18n.php:8
+msgid "Configuration file editor for _custom files"
 msgstr ""
 
 #: views/main.php:14
@@ -45,64 +64,75 @@ msgid ""
 "the browser that you would normally have to edit through the CLI."
 msgstr ""
 
-#: Configedit.class.php:53
+#: views/main.php:50
+msgid "Delete"
+msgstr ""
+
+#: Configedit.class.php:62
 #, php-format
 msgid "File %s already exists"
 msgstr ""
 
-#: Configedit.class.php:84
+#: Configedit.class.php:93
 #, php-format
 msgid "File %s is not readable"
 msgstr ""
 
-#: Configedit.class.php:87
-#: Configedit.class.php:101
+#: Configedit.class.php:96
+#: Configedit.class.php:110
+#: Configedit.class.php:132
 #, php-format
 msgid "File %s is not valid"
 msgstr ""
 
-#: Configedit.class.php:98
+#: Configedit.class.php:107
+#: Configedit.class.php:129
 #, php-format
 msgid "File %s is not writable"
 msgstr ""
 
-#: assets/js/configedit.js:104
+#: assets/js/configedit.js:123
 msgid "File is not writable"
 msgstr ""
 
-#: assets/js/configedit.js:61
+#: assets/js/configedit.js:79
 msgid "Please enter a valid (not in use) file name"
 msgstr ""
 
-#: views/main.php:50
-#: assets/js/configedit.js:54
+#: views/main.php:51
+#: assets/js/configedit.js:72
 msgid "Save"
 msgstr ""
 
-#: assets/js/configedit.js:43
+#: assets/js/configedit.js:61
 msgid ""
 "Saved. Make sure to Apply Config so that Asterisk will pickup your changes"
 msgstr ""
 
-#: assets/js/configedit.js:39
+#: assets/js/configedit.js:57
 msgid "Saving..."
 msgstr ""
 
-#: Configedit.class.php:68
+#: Configedit.class.php:77
 #, php-format
 msgid "There was a problem creating %s"
 msgstr ""
 
-#: Configedit.class.php:56
+#: Configedit.class.php:65
 #, php-format
 msgid "To able to write to %s"
+msgstr ""
+
+#: Configedit.class.php:119
+#, php-format
+msgid "Unable to delete file %s"
 msgstr ""
 
 #: views/main.php:9
 msgid "What is Configuration File Editor"
 msgstr ""
 
-#: assets/js/configedit.js:108
+#: assets/js/configedit.js:128
 #, perl-format
 msgid "Working on %s"
 msgstr ""
