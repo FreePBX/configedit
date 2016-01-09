@@ -47,6 +47,7 @@
 			<div id="message" class="alert alert-danger hidden" role="alert"></div>
 			<textarea id="editor" disabled></textarea>
 			<br/>
+			<button id="delete" class="pull-right btn btn-danger" disabled><?php echo _("Delete")?></button>
 			<button id="save" class="pull-right btn" disabled><?php echo _("Save")?></button>
 		</div>
 	</div>

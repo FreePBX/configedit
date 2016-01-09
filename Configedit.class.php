@@ -9,6 +9,7 @@
 
 class Configedit extends \FreePBX_Helpers implements BMO {
 	private $brand = 'FreePBX';
+	private $writableFiles = array();
 	public function __construct($freepbx = null) {
 		if ($freepbx == null) {
 			throw new Exception("Not given a FreePBX Object");
@@ -18,6 +19,13 @@ class Configedit extends \FreePBX_Helpers implements BMO {
 		$this->config = $freepbx->Config;
 		$this->brand = $this->config->get("DASHBOARD_FREEPBX_BRAND");
 		$this->astetcdir = $this->config->get('ASTETCDIR');
+
+		//Special files that are always writable
+		$this->writableFiles = array(
+			$this->astetcdir."/freepbx_menu.conf",
+			$this->astetcdir."/freepbx_module_admin.conf"
+		);
+
 	}
 
 	public function install() {
@@ -38,6 +46,7 @@ class Configedit extends \FreePBX_Helpers implements BMO {
 			case "load":
 			case "save":
 			case "add":
+			case "delete":
 				return true;
 			break;
 		}
@@ -89,11 +98,33 @@ class Configedit extends \FreePBX_Helpers implements BMO {
 			break;
 			case "save":
 				$files = $this->getValidFiles();
+				$file = $_POST['path']."/".$_POST['file'];
 				if(isset($files[$_POST['type']][$_POST['path']]['files'][$_POST['file']])) {
-					$file = $_POST['path']."/".$_POST['file'];
 					if(is_writable($file)) {
 						file_put_contents($file, $_POST['contents']);
 						return array("status" => true);
+					} else {
+						return array("status" => false, "message" => sprintf(_("File %s is not writable"),$file));
+					}
+				} else {
+					return array("status" => false, "message" => sprintf(_("File %s is not valid"),$file));
+				}
+			break;
+			case "delete":
+				$files = $this->getValidFiles();
+				$file = $_POST['path']."/".$_POST['file'];
+				if(isset($files[$_POST['type']][$_POST['path']]['files'][$_POST['file']]) && $_POST['type'] == "custom") {
+					if(is_writable($file)) {
+						if(!unlink($file)) {
+							return array("status" => false, "message" => sprintf(_("Unable to delete file %s"),$file));
+						} else {
+							$cf = $this->getConfig('customFiles');
+							if(in_array($_POST['file'],$cf)) {
+								$cf = array_diff($cf, array($_POST['file']));
+								$this->setConfig('customFiles',$cf);
+							}
+							return array("status" => true);
+						}
 					} else {
 						return array("status" => false, "message" => sprintf(_("File %s is not writable"),$file));
 					}
@@ -149,13 +180,20 @@ class Configedit extends \FreePBX_Helpers implements BMO {
 				"writable" => (is_writable($file))
 			);
 		}
-		if(file_exists($this->astetcdir."/freepbx_menu.conf")) {
-			$files['custom'][$this->astetcdir]['files']['freepbx_menu.conf'] = array(
-				"type" => "custom",
-				"file" => "freepbx_menu.conf",
-				"size" => filesize($this->astetcdir."/freepbx_menu.conf"),
-				"writable" => (is_writable($this->astetcdir."/freepbx_menu.conf"))
-			);
+
+		foreach($this->writableFiles as $file) {
+			if(file_exists($file)) {
+				$base = basename($file);
+				$dir = dirname($file);
+				$files['custom'][$dir]['files'][$base] = array(
+					"type" => "custom",
+					"file" => $base,
+					"size" => filesize($dir."/".$base),
+					"writable" => (is_writable($dir."/".$base))
+				);
+				$customs[] = $base;
+				asort($files['custom'][$dir]['files']);
+			}
 		}
 		$cf = $this->getConfig('customFiles');
 		if(!empty($cf) && is_array($cf)) {
@@ -168,6 +206,9 @@ class Configedit extends \FreePBX_Helpers implements BMO {
 					"size" => filesize($file),
 					"writable" => (is_writable($file))
 				);
+			}
+			if(!empty($files['custom'][$this->astetcdir]['files'])) {
+				asort($files['custom'][$this->astetcdir]['files']);
 			}
 		}
 		foreach(glob($this->astetcdir."/*") as $file) {
