@@ -199,6 +199,9 @@ class Configedit extends \FreePBX_Helpers implements BMO {
 		if(!empty($cf) && is_array($cf)) {
 			foreach($cf as $file) {
 				$file = $this->astetcdir."/".$file;
+				if(!file_exists($file)) {
+					continue;
+				}
 				$customs[] = basename($file);
 				$files['custom'][$this->astetcdir]['files'][basename($file)] = array(
 					"type" => "custom",

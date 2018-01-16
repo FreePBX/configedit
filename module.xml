@@ -2,7 +2,7 @@
 	<rawname>configedit</rawname>
 	<name>Config Edit</name>
 	<repo>extended</repo>
-	<version>13.0.7</version>
+	<version>13.0.7.1</version>
 	<publisher>Sangoma Technologies Corporation</publisher>
 	<license>AGPLv3+</license>
 	<licenselink>http://www.gnu.org/licenses/agpl-3.0.txt</licenselink>
@@ -10,6 +10,7 @@
 		Configuration file editor for _custom files
 	</description>
 	<changelog>
+		*13.0.7.1* FREEPBX-16519
 		*13.0.7* FREEPBX-11182 Allow deletion of custom files
 		*13.0.6* FREEPBX-10282 allow creation of custom files
 		*13.0.5* FREEPBX-10130 Allow viewing of read only files (non-custom)
