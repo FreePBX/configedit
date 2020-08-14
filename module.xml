@@ -9,6 +9,7 @@
 	<description>
 		Configuration file editor for _custom files
 	</description>
+	<more-info>https://wiki.freepbx.org/display/F2/Configuration+File+Editor</more-info>
 	<changelog>
 		*13.0.7.1* FREEPBX-16519
 		*13.0.7* FREEPBX-11182 Allow deletion of custom files
