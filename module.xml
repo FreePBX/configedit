@@ -2,7 +2,7 @@
 	<rawname>configedit</rawname>
 	<name>Config Edit</name>
 	<repo>extended</repo>
-	<version>16.0.4</version>
+	<version>17.0.1</version>
 	<publisher>Sangoma Technologies Corporation</publisher>
 	<license>AGPLv3+</license>
 	<licenselink>http://www.gnu.org/licenses/agpl-3.0.txt</licenselink>
@@ -11,19 +11,16 @@
 	</description>
 	<more-info>https://wiki.freepbx.org/display/FPG/Configuration+File+Editor</more-info>
 	<changelog>
-		*16.0.4* Packaging of ver 16.0.4
-		*16.0.3* FREEI-4793 
-		*16.0.2* Packaging of ver 16.0.2
-		*16.0.1* Inital 16.0 release
+		*17.0.1* Inital 17.0 release
 	</changelog>
 	<category>Admin</category>
     <menuitems>
     	<configedit>Config Edit</configedit>
     </menuitems>
 	<supported>
-		<version>16.0</version>
+		<version>17.0</version>
 	</supported>
 	<depends>
-		<version>16.0</version>
+		<version>17.0</version>
 	</depends>
 </module>
