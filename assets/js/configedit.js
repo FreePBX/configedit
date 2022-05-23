@@ -58,7 +58,7 @@ $(function() {
 			cmeditor.setOption("readOnly",true);
 			$.post( "ajax.php", {module: "configedit", command: "save", file: $("#editor").data("file"), path: $("#editor").data("path"), contents: cmeditor.getValue(), type: $("#editor").data("type")},function( data ) {
 				if(data.status) {
-					$("#message").removeClass("d-none alert-danger").addClass("alert-success").text(_("Saved. Make sure to Apply Config so that Asterisk will pickup your changes"));
+					$("#message").removeClass("hidden alert-danger").addClass("alert-success").text(_("Saved. Make sure to Apply Config so that Asterisk will pickup your changes"));
 					toggle_reload_button("show");
 					var id = $("#editor").data("id"),icon = $('#'+id).find('i.jstree-icon.jstree-themeicon').first();
 					if(cmeditor.getValue().trim() === "") {
@@ -67,7 +67,7 @@ $(function() {
 						icon.removeClass('fa-file-o').addClass('fa-file-text-o');
 					}
 				} else {
-					$("#message").removeClass("alert-success d-none").addClass("alert-danger").text(data.message);
+					$("#message").removeClass("alert-success hidden").addClass("alert-danger").text(data.message);
 				}
 				$("#save").prop("disabled", false).text(_("Save"));
 				cmeditor.setOption("readOnly",false);
@@ -115,19 +115,19 @@ function loadFile(id, file, path, type) {
 			$("#editor").data("type", $("#"+id).data("type"));
 			$("#editor").data("id", id);
 			if(data.writable) {
-				$("#message").addClass("d-none").text("");
+				$("#message").addClass("hidden").text("");
 				$("#save").prop("disabled", false);
 				$("#delete").prop("disabled", false);
 				cmeditor.setOption("readOnly",false);
 			} else {
-				$("#message").removeClass("alert-success d-none").addClass("alert-danger").text(_("File is not writable"));
+				$("#message").removeClass("alert-success hidden").addClass("alert-danger").text(_("File is not writable"));
 				$("#save").prop("disabled", true);
 				$("#delete").prop("disabled", true);
 				cmeditor.setOption("readOnly",true);
 			}
 			$("#filemessage").text(sprintf(_("Working on %s"),$("#"+id).data("file")));
 		} else {
-			$("#message").removeClass("alert-success d-none").addClass("alert-danger").text(data.message);
+			$("#message").removeClass("alert-success hidden").addClass("alert-danger").text(data.message);
 			$("#save").prop("disabled", true);
 			$("#delete").prop("disabled", true);
 		}
