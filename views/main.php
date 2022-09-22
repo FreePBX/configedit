@@ -6,7 +6,7 @@
 			<div class="panel panel-info">
 				<div class="panel-heading">
 					<div class="panel-title">
-						<a href="#" data-toggle="collapse" data-target="#moreinfo"><i class="glyphicon glyphicon-info-sign"></i></a>&nbsp;&nbsp;&nbsp;<?php echo _("What is Configuration File Editor")?>
+						<a href="#" data-toggle="collapse" data-target="#moreinfo"><i class="fa fa-info-circle"></i></a>&nbsp;&nbsp;&nbsp;<?php echo _("What is Configuration File Editor")?>
 					</div>
 				</div>
 				<!--At some point we can probably kill this... Maybe make is a 1 time panel that may be dismissed-->
