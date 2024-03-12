@@ -119,7 +119,7 @@ class Configedit extends \FreePBX_Helpers implements BMO {
 							return array("status" => false, "message" => sprintf(_("Unable to delete file %s"),$file));
 						} else {
 							$cf = $this->getConfig('customFiles');
-							if(in_array($_POST['file'],$cf)) {
+							if(is_array($cf) && in_array($_POST['file'],$cf)) {
 								$cf = array_diff($cf, array($_POST['file']));
 								$this->setConfig('customFiles',$cf);
 							}
