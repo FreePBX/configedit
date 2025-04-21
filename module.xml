@@ -9,7 +9,7 @@
 	<description>
 		Configuration file editor for _custom files
 	</description>
-	<more-info>https://wiki.freepbx.org/display/FPG/Configuration+File+Editor</more-info>
+	<more-info>https://sangomakb.atlassian.net/wiki/spaces/PG/pages/20318695/PBX+GUI+-+Configuration+File+Editor</more-info>
 	<changelog>
 		*17.0.1.2* Inital 17.0 release
 	</changelog>
