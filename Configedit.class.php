@@ -10,6 +10,9 @@
 class Configedit extends \FreePBX_Helpers implements BMO {
 	private $brand = 'FreePBX';
 	private $writableFiles = array();
+	private $FreePBX = null;
+	private $config = null;
+	private $astetcdir = null;
 	public function __construct($freepbx = null) {
 		if ($freepbx == null) {
 			throw new Exception("Not given a FreePBX Object");
